@@ -1,16 +1,20 @@
 Package: NetRecover
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Gaussian Graphical Network Estimation and Recovery
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Chuanhao", "Yang",
+      email = "ch.yang@tamu.edu",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Provides tools for simulating Gaussian graphical models,
+    estimating sparse precision matrices using graphical lasso,
+    and evaluating network recovery performance through repeated
+    simulations. Planned functionality includes computing performance
+    metrics such as true positive rate, false positive rate,
+    and false discovery rate, as well as visualizing estimated networks.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
