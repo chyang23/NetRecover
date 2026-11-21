@@ -1,4 +1,16 @@
-
+#' Evaluate The Network Recovery
+#'
+#' Compare the estimated precision matrix with the true
+#' precision matrix to evaluate network recovery.
+#'
+#' @param Omega_hat The estimated precision matrix.
+#' @param Omega_true True precision matrix.
+#' @param threshold Numerical threshold for edge selection.
+#'
+#' @return A data frame containing the number of selected
+#' edges, TP, FP, FN, TN, TPR, FPR, FDP, and Frobenius error.
+#'
+#' @export
 
 
 eval_graph <- function(Omega_hat, Omega_true,
