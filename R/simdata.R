@@ -1,48 +1,34 @@
-#' Simulate Data from a Gaussian Graphical Model
+#' Simulate Data from a Scale-Free Gaussian Graphical Model
 #'
-#' Generate Gaussian data with a user-defined number of edges.
+#' Generate Gaussian data from a scale-free network
 #'
 #' @param n Sample size.
-#' @param p Number of variables.
-#' @param n_edges Number of edges in the true network.
+#' @param p Number of variables(genes).
 #'
 #' @return A list containing the simulated data, true adjacency
 #'   matrix, true precision matrix, and true covariance matrix.
 #' @export
-simdata <- function(n, p, n_edges) {
+#'
+simdata <- function(n, p) {
 
-  # Check inputs
-  if (length(n) != 1 || !is.numeric(n) ||
-      !is.finite(n) || n < 2 || n != floor(n)) {
-    stop("n must be an integer greater than 1.")
-  }
+  # create the graph
+  graph <- igraph::sample_pa(p, directed = FALSE)
 
-  if (length(p) != 1 || !is.numeric(p) ||
-      !is.finite(p) || p < 2 || p != floor(p)) {
-    stop("p must be an integer greater than 1.")
-  }
+  A_true <- as.matrix(
+    igraph::as_adjacency_matrix(graph)
+  )
 
-  max_edges <- p * (p - 1) / 2
+  diag(A_true) <- 0
 
-  if (length(n_edges) != 1 || !is.numeric(n_edges) ||
-      !is.finite(n_edges) || n_edges < 0 ||
-      n_edges > max_edges || n_edges != floor(n_edges)) {
-    stop("n_edges must be an integer between 0 and p*(p-1)/2.")
-  }
-
-  if (!is.null(seed)) set.seed(seed)
-
-  # Generate a network with exactly n_edges edges
-  A_true <- matrix(0, p, p)
-
-  idx <- which(upper.tri(A_true))
-  selected <- sample(idx, n_edges)
-
-  A_true[selected] <- 1
-  A_true <- A_true + t(A_true)
 
   # Assign random edge weights
   Omega <- matrix(0, p, p)
+
+  selected <- which(
+    upper.tri(A_true) & A_true != 0
+  )
+
+  n_edges <- length(selected)
 
   Omega[selected] <- runif(n_edges, 0.5, 1) *
     sample(c(-1, 1), n_edges, replace = TRUE)
@@ -51,13 +37,14 @@ simdata <- function(n, p, n_edges) {
 
   # Construct a positive definite precision matrix
   s <- rowSums(abs(Omega))
+
   d <- ifelse(s == 0, 1, 1.01 * s)
 
   diag(Omega) <- d
 
   Omega_true <- Omega / outer(sqrt(d), sqrt(d))
 
-  # True covariance matrix
+  # Calculate true covariance matrix
   Sigma_true <- solve(Omega_true)
 
   # Generate Gaussian data
