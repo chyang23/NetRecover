@@ -9,10 +9,10 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: Provides tools for simulating Gaussian graphical models,
+Description: NetRecover Provides tools for simulating Gaussian graphical models,
     estimating sparse precision matrices using graphical lasso,
     and evaluating network recovery performance through repeated
-    simulations. Planned functionality includes computing performance
+    simulations. The evaluation includes computing performance
     metrics such as true positive rate, false positive rate,
     and false discovery rate, as well as visualizing estimated networks.
 License: MIT + file LICENSE
