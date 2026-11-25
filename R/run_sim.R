@@ -1,3 +1,16 @@
+#' Run Graphical LASSO Simulation Study
+#'
+#' Evaluate graphical lasso recovery over repeated Gaussian
+#' simulations using a fixed true scale-free network.
+#'
+#' @param n Sample size.
+#' @param p Number of variables.
+#' @param lambda_seq Vector of regularization parameters.
+#' @param n_sim Number of simulation repetitions.
+#'
+#' @return A list containing raw simulation results,
+#'   summary statistics, and the true network.
+#' @export
 
 run_sim <- function(n, p, lambda_seq, n_sim = 100) {
 
