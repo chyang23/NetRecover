@@ -1,3 +1,16 @@
+#' Graphical LASSO Using Coordinate Descent; the function is
+#' not finished yet
+
+#' @param X
+#' @param lambda
+#' @param tol
+#' @param inner_tol
+#' @param maxit
+#' @param inner_maxit
+#'
+#' @return
+#' @export
+
 
 glasso_cd <- function(X, lambda,
                       tol = 1e-6,
